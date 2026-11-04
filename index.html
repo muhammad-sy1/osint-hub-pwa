@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مركز أدوات OSINT</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#002623">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+@font-face{font-family:"Qomra";src:local("Qomra"),local("قمرة"),url("fonts/Qomra-Regular.woff2") format("woff2"),url("fonts/Qomra-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:"Qomra";src:local("Qomra Bold"),url("fonts/Qomra-Bold.woff2") format("woff2"),url("fonts/Qomra-Bold.ttf") format("truetype");font-weight:700;font-display:swap}
+:root{--f1:#002623;--f2:#054239;--f3:#428177;--g1:#988561;--g2:#b9a779;--g3:#edebe0;--u1:#260f14;--u2:#4a151e;--u3:#6b1f2a;--c1:#161616;--c2:#3d3a3b;--c3:#fff;color-scheme:dark;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--c1);color:var(--g3);font:15px/1.7 "Qomra","Noto Sans Arabic","Segoe UI",Tahoma,sans-serif}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(237,235,224,.025) 0 1px,transparent 1px 3px);z-index:5}
+header{position:relative;overflow:hidden;text-align:center;padding:26px 16px 20px;background:linear-gradient(180deg,var(--f1),var(--c1));border-bottom:1px solid var(--f2)}
+#rain{position:absolute;inset:0;width:100%;height:100%;opacity:.4}
+.hero{position:relative;max-width:760px;margin:auto}
+.hood{width:92px;height:92px;color:var(--g2);--eye:var(--f3);filter:drop-shadow(0 0 14px rgba(66,129,119,.55))}
+h1{margin:6px 0 2px;font-size:26px;color:var(--c3);font-weight:700}
+.sub{margin:0;color:var(--g1);font-size:13.5px}
+.term{direction:ltr;display:inline-block;margin-top:10px;padding:5px 12px;border:1px solid var(--f3);border-radius:8px;background:rgba(0,38,35,.8);color:var(--g2);font:12px ui-monospace,Menlo,monospace}
+.term i{display:inline-block;width:7px;height:13px;background:var(--g2);vertical-align:-2px;animation:b 1s steps(1) infinite}
+@keyframes b{50%{opacity:0}}
+.wrap{max-width:760px;margin:auto;padding:14px 16px 40px}
+input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--f3);background:var(--f1);color:var(--g3);font:inherit}
+input::placeholder{color:var(--g1)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 0}
+.chip{flex:none;padding:6px 14px;border-radius:99px;border:1px solid var(--g1);background:transparent;color:var(--g2);font:inherit;font-size:13px;cursor:pointer}
+.chip.on{background:var(--g2);color:var(--f1);border-color:var(--g2)}
+.div{display:flex;align-items:center;gap:10px;color:var(--g1);font:11px ui-monospace,monospace;direction:ltr;margin:4px 0 2px}
+.div::before,.div::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--f3),transparent)}
+.card{position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(5,66,57,.55),rgba(0,38,35,.75));border:1px solid var(--f2);border-radius:14px;padding:14px;margin:12px 0}
+.card::before,.card::after{content:"";position:absolute;width:16px;height:16px;border:2px solid var(--g2);opacity:.8}
+.card::before{top:6px;right:6px;border-left:0;border-bottom:0}
+.card::after{bottom:6px;left:6px;border-right:0;border-top:0}
+.wm{position:absolute;left:10px;bottom:8px;width:74px;height:74px;color:var(--f3);opacity:.14;--eye:var(--g2)}
+.tag{display:inline-block;font-size:12px;color:var(--f1);background:var(--g2);border-radius:6px;padding:0 8px}
+.card h2{margin:6px 0 0;font-size:18px;color:var(--c3);font-weight:700}
+.card p{margin:2px 0 8px;color:var(--g1);font-size:13.5px;position:relative}
+.cmd{position:relative;display:flex;align-items:center;gap:8px;background:var(--f1);border:1px solid var(--f2);border-radius:10px;padding:6px 6px 6px 10px;margin:6px 0}
+.cmd code{flex:1;direction:ltr;text-align:left;color:var(--g2);font:12.5px ui-monospace,Menlo,monospace;overflow-x:auto;white-space:nowrap}
+.cmd code::before{content:"$ ";color:var(--f3)}
+.cmd button{flex:none;border:0;border-radius:8px;background:var(--g2);color:var(--c1);padding:6px 12px;font:inherit;font-size:12px;cursor:pointer}
+a.src{position:relative;font-size:12.5px;color:var(--f3)}
+.note{margin-top:20px;padding:12px 14px;border:1px solid var(--u3);border-radius:12px;background:linear-gradient(160deg,var(--u2),var(--u1));color:var(--g3);font-size:12.5px}
+.note b{color:var(--g2)}
+footer{display:flex;justify-content:center;align-items:center;gap:10px;padding:6px 0 18px;color:var(--c2);font:11px ui-monospace,monospace;direction:ltr}
+footer svg{width:26px;height:26px;color:var(--c2);--eye:var(--c1)}
+@media (prefers-reduced-motion:reduce){.term i{animation:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="hk" viewBox="0 0 100 100"><path fill="currentColor" d="M50 5C28 5 15 23 15 44c0 12-4 20-10 50h90c-6-30-10-38-10-50C85 23 72 5 50 5Z"/><path fill="#161616" d="M50 22c-12 0-20 10-20 23 0 14 8 25 20 25s20-11 20-25c0-13-8-23-20-23Z"/><path fill="var(--eye,#b9a779)" d="M36 43l11 4-11 3ZM64 43l-11 4 11 3Z"/><path fill="var(--eye,#b9a779)" d="M40 60h20v2H40ZM44 64h12v2H44Z" opacity=".7"/></symbol>
+<symbol id="mk" viewBox="0 0 100 100"><path fill="currentColor" d="M50 6C28 6 19 23 21 46c1 16 8 31 19 40l4 8h12l4-8c11-9 18-24 19-40 2-23-7-40-29-40Z"/><path fill="#161616" d="M30 38q10-8 17 2-9 6-17-2ZM70 38q-10-8-17 2 9 6 17-2ZM28 62q22-10 44 0-11 6-22 2-11 4-22-2ZM46 73h8l-4 12Z"/></symbol>
+</svg>
+<header>
+<canvas id="rain" aria-hidden="true"></canvas>
+<div class="hero">
+<svg class="hood" viewBox="0 0 100 100" aria-hidden="true"><use href="#hk"/></svg>
+<h1>مركز أدوات OSINT</h1>
+<p class="sub">دليل عربي لأوامر الاستطلاع والاستخبارات المفتوحة</p>
+<div class="term">root@osint:~# ./launch --lang=ar<i></i></div>
+</div>
+</header>
+<div class="wrap">
+<input id="q" type="search" placeholder="ابحث عن أداة…" aria-label="بحث">
+<div class="chips" id="chips"></div>
+<div class="div">// TARGETS</div>
+<div id="list"></div>
+<div class="note"><b>تنبيه:</b> القائمة مختارة من أدوات معروفة ومفتوحة المصدر، والأوامر مأخوذة من توثيق كل أداة، فراجع صفحتها الرسمية قبل التثبيت. استخدمها على أهداف مصرّح لك بها أو على بيانات عامة فقط، فالتحقيق الأخلاقي هو الغاية.</div>
+</div>
+<footer><svg viewBox="0 0 100 100"><use href="#hk"/></svg><span>0x4F53494E54 // OPEN SOURCE INTELLIGENCE</span><svg viewBox="0 0 100 100"><use href="#mk"/></svg></footer>
+<script>
+var T=[
+{n:"Sherlock",c:"وسائل التواصل",d:"يبحث عن اسم مستخدم في مئات المنصات.",i:"pip install sherlock-project",r:"sherlock username",u:"https://github.com/sherlock-project/sherlock"},
+{n:"Maigret",c:"وسائل التواصل",d:"يجمع ملفاً عن حساب من اسم المستخدم فقط.",i:"pip install maigret",r:"maigret username",u:"https://github.com/soxoj/maigret"},
+{n:"holehe",c:"البريد",d:"يتحقق إن كان بريد مسجلاً في مواقع معروفة.",i:"pip install holehe",r:"holehe name@example.com",u:"https://github.com/megadose/holehe"},
+{n:"theHarvester",c:"البريد",d:"يجمع إيميلات ونطاقات فرعية من مصادر عامة.",i:"sudo apt install theharvester",r:"theHarvester -d example.com -b all",u:"https://github.com/laramies/theHarvester"},
+{n:"Amass",c:"الشبكة والنطاقات",d:"يرسم خريطة النطاقات الفرعية لموقع.",i:"sudo apt install amass",r:"amass enum -d example.com",u:"https://github.com/owasp-amass/amass"},
+{n:"Subfinder",c:"الشبكة والنطاقات",d:"اكتشاف سريع للنطاقات الفرعية بشكل سلبي.",i:"go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest",r:"subfinder -d example.com",u:"https://github.com/projectdiscovery/subfinder"},
+{n:"Shodan CLI",c:"الشبكة والنطاقات",d:"بحث عن الأجهزة المكشوفة (يحتاج مفتاح API).",i:"pip install shodan",r:"shodan init API_KEY && shodan host 8.8.8.8",u:"https://cli.shodan.io"},
+{n:"WhatWeb",c:"الشبكة والنطاقات",d:"يتعرف على تقنيات الموقع (CMS، خوادم).",i:"sudo apt install whatweb",r:"whatweb example.com",u:"https://github.com/urbanadventurer/WhatWeb"},
+{n:"SpiderFoot",c:"أطر شاملة",d:"إطار أتمتة بواجهة ويب على جوالك.",i:"git clone https://github.com/smicallef/spiderfoot && cd spiderfoot && pip install -r requirements.txt",r:"python3 sf.py -l 127.0.0.1:5001",u:"https://github.com/smicallef/spiderfoot"},
+{n:"Recon-ng",c:"أطر شاملة",d:"إطار استطلاع بوحدات شبيه بـ Metasploit.",i:"sudo apt install recon-ng",r:"recon-ng",u:"https://github.com/lanmaster53/recon-ng"},
+{n:"ExifTool",c:"البيانات الوصفية",d:"يقرأ بيانات الصور والملفات، منها GPS والكاميرا.",i:"sudo apt install libimage-exiftool-perl",r:"exiftool photo.jpg",u:"https://exiftool.org"},
+{n:"PhoneInfoga",c:"الهاتف",d:"معلومات عامة عن رقم هاتف (الدولة، المشغّل).",i:"حمّل الملف التنفيذي من صفحة Releases",r:"phoneinfoga scan -n \"+14155550123\"",u:"https://github.com/sundowndev/phoneinfoga"}
+];
+var cats=["الكل"].concat(T.map(function(t){return t.c}).filter(function(c,i,a){return a.indexOf(c)===i}));
+var cur="الكل",q=document.getElementById("q"),list=document.getElementById("list"),chips=document.getElementById("chips");
+function esc(s){return s.replace(/[&<>"]/g,function(m){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]})}
+function cmd(s){return '<div class="cmd"><code>'+esc(s)+'</code><button data-c="'+esc(s)+'">نسخ</button></div>'}
+function draw(){
+ chips.innerHTML=cats.map(function(c){return '<button class="chip'+(c===cur?' on':'')+'" data-k="'+c+'">'+c+'</button>'}).join("");
+ var k=q.value.trim().toLowerCase();
+ var r=T.filter(function(t){return(cur==="الكل"||t.c===cur)&&(!k||(t.n+t.d+t.c).toLowerCase().indexOf(k)>-1)});
+ list.innerHTML=r.length?r.map(function(t,x){
+  return '<div class="card"><svg class="wm" viewBox="0 0 100 100"><use href="#'+(x%2?'mk':'hk')+'"/></svg><span class="tag">'+t.c+'</span><h2>'+t.n+'</h2><p>'+t.d+'</p>'+cmd(t.i)+cmd(t.r)+'<a class="src" href="'+t.u+'" target="_blank" rel="noopener">الصفحة الرسمية</a></div>'
+ }).join(""):'<p class="sub">ما في نتائج.</p>';
+}
+function copy(s,b){
+ function ok(){var o=b.textContent;b.textContent="تم ✓";setTimeout(function(){b.textContent=o},1200)}
+ function fb(){try{var a=document.createElement("textarea");a.value=s;document.body.appendChild(a);a.select();document.execCommand("copy");a.remove();ok()}catch(e){}}
+ try{navigator.clipboard.writeText(s).then(ok,fb)}catch(e){fb()}
+}
+document.addEventListener("click",function(e){
+ var b=e.target.closest("button");if(!b)return;
+ if(b.dataset.k){cur=b.dataset.k;draw()}else if(b.dataset.c){copy(b.dataset.c,b)}
+});
+q.addEventListener("input",draw);
+/* matrix rain */
+(function(){
+ var cv=document.getElementById("rain"),cx=cv.getContext("2d"),ch="01ABCDEF<>{}/\\$#%",fs=14,cols,y=[],still=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+ function size(){cv.width=cv.offsetWidth;cv.height=cv.offsetHeight;cols=Math.ceil(cv.width/fs);y=[];for(var i=0;i<cols;i++)y.push(Math.random()*cv.height/fs)}
+ function tick(){
+  cx.fillStyle="rgba(0,38,35,.14)";cx.fillRect(0,0,cv.width,cv.height);
+  cx.font=fs+"px monospace";
+  for(var i=0;i<cols;i++){
+   cx.fillStyle=Math.random()>.96?"#b9a779":"#428177";
+   cx.fillText(ch.charAt(Math.floor(Math.random()*ch.length)),i*fs,y[i]*fs);
+   if(y[i]*fs>cv.height&&Math.random()>.975)y[i]=0;y[i]++;
+  }
+ }
+ size();window.addEventListener("resize",size);
+ if(still){for(var k=0;k<30;k++)tick()}else{setInterval(tick,80)}
+})();
+if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){})}
+draw();
+</script>
+</body>
+</html>
